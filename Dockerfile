@@ -31,6 +31,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=build --chown=node:node /opt/cronicle /opt/cronicle
 COPY configure.mjs /usr/local/lib/cronicle-configure.mjs
+COPY rebind-host.mjs /usr/local/lib/cronicle-rebind-host.mjs
 COPY entrypoint.sh /usr/local/bin/cronicle-entrypoint
 RUN chmod +x /usr/local/bin/cronicle-entrypoint \
     && mkdir -p /opt/cronicle/data /tmp/cronicle-logs /tmp/cronicle-queue \

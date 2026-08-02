@@ -17,6 +17,8 @@ if [ ! -f /opt/cronicle/data/.railway-initialized ]; then
   gosu node touch /opt/cronicle/data/.railway-initialized
 fi
 
+gosu node node /usr/local/lib/cronicle-rebind-host.mjs
+
 touch /tmp/cronicle-logs/combined.log
 chown node:node /tmp/cronicle-logs/combined.log
 tail -n 0 -F /tmp/cronicle-logs/combined.log &
