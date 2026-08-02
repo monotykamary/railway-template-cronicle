@@ -1,5 +1,7 @@
 # Cronicle on Railway
 
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/cronicle-scheduler?referralCode=ZqgrJ0)
+
 Deploy Cronicle 0.9.125 as a single-node task scheduler with a generated administrator password and persistent scheduling data.
 
 The Deploy on Railway button is added after the published route is verified.
