@@ -1,0 +1,26 @@
+import { readFileSync, writeFileSync, chmodSync, chownSync } from "node:fs";
+
+const path = "/opt/cronicle/conf/config.json";
+const config = JSON.parse(readFileSync(path, "utf8"));
+config.base_app_url = `https://${process.env.CRONICLE_PUBLIC_DOMAIN}`;
+config.secret_key = process.env.CRONICLE_SECRET_KEY;
+config.foreground = true;
+config.log_dir = "/tmp/cronicle-logs";
+config.log_filename = "combined.log";
+config.log_archive_path = "/tmp/cronicle-logs/archives/[yyyy]/[mm]/[dd]/[filename]-[yyyy]-[mm]-[dd].log.gz";
+config.queue_dir = "/tmp/cronicle-queue";
+config.pid_file = "/tmp/cronicle-logs/cronicled.pid";
+config.web_direct_connect = false;
+config.web_socket_use_hostnames = false;
+config.server_comm_use_hostnames = false;
+config.master_ping_timeout = 10;
+config.scheduler_startup_grace = 3;
+config.WebServer.http_port = Number(process.env.PORT || 3012);
+config.WebServer.https = false;
+config.Storage.engine = "Filesystem";
+config.Storage.Filesystem.base_dir = "/opt/cronicle/data";
+delete config.smtp_hostname;
+delete config.smtp_port;
+writeFileSync(path, `${JSON.stringify(config, null, 2)}\n`, { mode: 0o600 });
+chmodSync(path, 0o600);
+chownSync(path, 1000, 1000);
