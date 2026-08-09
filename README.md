@@ -2,13 +2,13 @@
 
 [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/cronicle-scheduler?referralCode=ZqgrJ0)
 
-Deploy Cronicle 0.9.125 as a single-node task scheduler with a generated administrator password and persistent scheduling data.
+Deploy Cronicle 0.9.126 as a single-node task scheduler with a generated administrator password and persistent scheduling data.
 
 The Deploy on Railway button is added after the published route is verified.
 
 ## What this deploys
 
-- Cronicle `0.9.125`, built from a checksum-verified upstream release archive
+- Cronicle `0.9.126`, built from a checksum-verified upstream release archive
 - Node.js `22.22.0` LTS on a digest-pinned Linux/AMD64 base image
 - One daily-backed-up Railway volume for users, schedules, history, and completed job metadata
 - An idempotent first-run initializer that replaces the upstream `admin` / `admin` default before serving traffic
@@ -46,9 +46,9 @@ BASE_URL=https://your-domain.example ADMIN_USERNAME=admin ADMIN_PASSWORD=... ./s
 
 ## Upstream
 
-- Source: https://github.com/jhuckaby/Cronicle/tree/v0.9.125
-- Release: https://github.com/jhuckaby/Cronicle/releases/tag/v0.9.125
-- Documentation: https://github.com/jhuckaby/Cronicle/tree/v0.9.125/docs
+- Source: https://github.com/jhuckaby/Cronicle/tree/v0.9.126
+- Release: https://github.com/jhuckaby/Cronicle/releases/tag/v0.9.126
+- Documentation: https://github.com/jhuckaby/Cronicle/tree/v0.9.126/docs
 - License: MIT
 
 This repository contains only Railway adapters and documentation. Cronicle remains copyright Joseph Huckaby and contributors and is not affiliated with Railway.
