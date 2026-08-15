@@ -2,9 +2,9 @@
 
 ## About Hosting Cronicle
 
-Cronicle is a web-based task scheduler and runner with event timing, command plugins, live progress, job history, and operator access control. This template deploys stable version 0.9.126 as a supported single-node scheduler.
+Cronicle is a web-based task scheduler and runner with event timing, command plugins, live progress, job history, and operator access control. This template deploys stable version 0.9.128 as a supported single-node scheduler.
 
-Sign in using `CRONICLE_ADMIN_USERNAME` and the generated `CRONICLE_ADMIN_PASSWORD` service variable.
+Sign in using `CRONICLE_ADMIN_USERNAME` and the generated `CRONICLE_ADMIN_PASSWORD` service variable. This revision includes Cronicle dependency vulnerability fixes and the Node.js 22.23.2 security release.
 
 ## Common Use Cases
 
@@ -23,7 +23,7 @@ Sign in using `CRONICLE_ADMIN_USERNAME` and the generated `CRONICLE_ADMIN_PASSWO
 
 ### Implementation Details
 
-The adapter builds a checksum-verified Cronicle 0.9.126 source archive on digest-pinned Node.js 22 LTS. First startup initializes filesystem storage and replaces the insecure upstream default administrator password before traffic becomes healthy. Scheduler state is stored at `/opt/cronicle/data`; the application and child jobs run as an unprivileged user.
+The adapter builds a checksum-verified Cronicle 0.9.128 source archive on digest-pinned Node.js 22 LTS. First startup initializes filesystem storage and replaces the insecure upstream default administrator password before traffic becomes healthy. Scheduler state is stored at `/opt/cronicle/data`; the application and child jobs run as an unprivileged user.
 
 This is deliberately a single-node topology. Cronicle's optional UDP discovery and LAN-oriented multi-server behavior are not represented. Administrators can run arbitrary commands by design, so access must be limited to trusted operators.
 
