@@ -50,6 +50,7 @@ Exercise the scheduler end to end by creating an on-demand shell event, running 
 
 ```bash
 BASE_URL=https://your-domain.example ADMIN_USERNAME=admin ADMIN_PASSWORD=... node scripts/job-smoke.mjs
+SCHEDULED=1 BASE_URL=https://your-domain.example ADMIN_USERNAME=admin ADMIN_PASSWORD=... node scripts/job-smoke.mjs
 ```
 
 ## Upstream

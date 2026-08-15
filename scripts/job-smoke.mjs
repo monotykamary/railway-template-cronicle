@@ -6,6 +6,7 @@ const password = required("ADMIN_PASSWORD");
 const existingEventId = process.env.EXISTING_EVENT_ID || "";
 const expectedJobId = process.env.EXPECTED_JOB_ID || "";
 const expectedVersion = "0.9.128";
+const scheduled = process.env.SCHEDULED === "1";
 let sessionId = "";
 let csrfToken = "";
 let cookie = "";
@@ -96,7 +97,7 @@ async function createAndRun() {
       annotate: 0,
       json: 0
     },
-    timing: { years: [2001], minutes: [0] },
+    timing: scheduled ? {} : { years: [2001], minutes: [0] },
     max_children: 1,
     timeout: 60,
     catch_up: 0,
@@ -118,24 +119,44 @@ async function createAndRun() {
   assertSuccess("create_event", created);
   assert.ok(created.id, "create_event returned no event ID");
 
-  const launched = await api("/api/app/run_event", { id: created.id });
-  assertSuccess("run_event", launched);
-  assert.equal(launched.ids?.length, 1, "run_event did not launch exactly one job");
-  const jobId = launched.ids[0];
-
-  const deadline = Date.now() + 60_000;
-  let job;
-  while (Date.now() < deadline) {
-    const status = await api("/api/app/get_job_status", { id: jobId });
-    if (status.code === 0 && status.job?.complete) {
-      job = status.job;
-      break;
+  let jobId;
+  if (scheduled) {
+    const deadline = Date.now() + 120_000;
+    while (Date.now() < deadline) {
+      const history = await api("/api/app/get_history", { offset: 0, limit: 100 });
+      assertSuccess("get_history", history);
+      const row = history.rows.find((item) => item.event === created.id);
+      if (row) {
+        jobId = row.id;
+        assert.equal(row.code, 0, row.description || `scheduled job ${jobId} failed`);
+        break;
+      }
+      await new Promise((resolve) => setTimeout(resolve, 2_000));
     }
-    await new Promise((resolve) => setTimeout(resolve, 1_000));
+    assert.ok(jobId, `scheduled event ${created.id} did not run within 120 seconds`);
+    const disabled = await api("/api/app/update_event", { id: created.id, enabled: 0 });
+    assertSuccess("update_event", disabled);
   }
-  assert.ok(job, `job ${jobId} did not complete within 60 seconds`);
-  assert.equal(job.code, 0, job.description || `job ${jobId} failed`);
-  assert.equal(job.event, created.id);
+  else {
+    const launched = await api("/api/app/run_event", { id: created.id });
+    assertSuccess("run_event", launched);
+    assert.equal(launched.ids?.length, 1, "run_event did not launch exactly one job");
+    jobId = launched.ids[0];
+
+    const deadline = Date.now() + 60_000;
+    let job;
+    while (Date.now() < deadline) {
+      const status = await api("/api/app/get_job_status", { id: jobId });
+      if (status.code === 0 && status.job?.complete) {
+        job = status.job;
+        break;
+      }
+      await new Promise((resolve) => setTimeout(resolve, 1_000));
+    }
+    assert.ok(job, `job ${jobId} did not complete within 60 seconds`);
+    assert.equal(job.code, 0, job.description || `job ${jobId} failed`);
+    assert.equal(job.event, created.id);
+  }
 
   return verifyPersisted(created.id, jobId);
 }
@@ -158,4 +179,4 @@ await waitForMaster();
 const result = existingEventId
   ? await verifyPersisted(existingEventId, expectedJobId)
   : await createAndRun();
-console.log(JSON.stringify({ version: status.version, ...result }));
+console.log(JSON.stringify({ version: status.version, mode: scheduled ? "scheduled" : "manual", ...result }));
