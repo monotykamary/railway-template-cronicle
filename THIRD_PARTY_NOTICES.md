@@ -2,8 +2,8 @@
 
 ## Cronicle
 
-- Version: 0.9.126
-- Source: https://github.com/jhuckaby/Cronicle/tree/v0.9.126
+- Version: 0.9.128
+- Source: https://github.com/jhuckaby/Cronicle/tree/v0.9.128
 - Copyright: Joseph Huckaby and contributors
 - License: MIT
 
@@ -11,6 +11,6 @@
 
 ## Node.js
 
-- Version: 22.22.0
+- Version: 22.23.2
 - Source: https://github.com/nodejs/node
 - License: MIT and bundled third-party terms

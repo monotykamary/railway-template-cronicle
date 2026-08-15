@@ -1,7 +1,7 @@
-FROM docker.io/library/node:22.22.0-bookworm-slim@sha256:7cc56ef285a8568121537d17b05e72128f01b89c54607b51acf084a50ef483f3 AS build
+FROM docker.io/library/node:22.23.2-bookworm-slim@sha256:d649c27dae7ba0137b3cef5dd75baa422c08dc3d9e3fc0c23dfb172dc3cc6436 AS build
 
-ARG CRONICLE_VERSION=0.9.126
-ARG CRONICLE_SHA256=89506a9cccd812b6657b1c623ac670caf524cac2b6b5e98b0552200ad95ef778
+ARG CRONICLE_VERSION=0.9.128
+ARG CRONICLE_SHA256=e68be2e6f76027ffd49458aedbd3d9a1ad3445e548f904b7f3116bd34bffdafe
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates curl \
@@ -24,7 +24,7 @@ RUN npm ci --omit=dev --ignore-scripts \
     && npm cache clean --force \
     && rm /tmp/patch-build.mjs
 
-FROM docker.io/library/node:22.22.0-bookworm-slim@sha256:7cc56ef285a8568121537d17b05e72128f01b89c54607b51acf084a50ef483f3
+FROM docker.io/library/node:22.23.2-bookworm-slim@sha256:d649c27dae7ba0137b3cef5dd75baa422c08dc3d9e3fc0c23dfb172dc3cc6436
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates curl gosu procps tini tzdata \
