@@ -7,6 +7,8 @@ const existingEventId = process.env.EXISTING_EVENT_ID || "";
 const expectedJobId = process.env.EXPECTED_JOB_ID || "";
 const expectedVersion = "0.9.129";
 const scheduled = process.env.SCHEDULED === "1";
+const expectedRuns = Number(process.env.EXPECTED_RUNS || "1");
+assert.ok(Number.isInteger(expectedRuns) && expectedRuns > 0, "EXPECTED_RUNS must be a positive integer");
 let sessionId = "";
 let csrfToken = "";
 let cookie = "";
@@ -121,19 +123,22 @@ async function createAndRun() {
 
   let jobId;
   if (scheduled) {
-    const deadline = Date.now() + 120_000;
+    const timeoutMs = Math.max(120_000, (expectedRuns + 1) * 70_000);
+    const deadline = Date.now() + timeoutMs;
     while (Date.now() < deadline) {
       const history = await api("/api/app/get_history", { offset: 0, limit: 100 });
       assertSuccess("get_history", history);
-      const row = history.rows.find((item) => item.event === created.id);
-      if (row) {
-        jobId = row.id;
-        assert.equal(row.code, 0, row.description || `scheduled job ${jobId} failed`);
+      const rows = history.rows.filter((item) => item.event === created.id);
+      for (const row of rows) {
+        assert.equal(row.code, 0, row.description || `scheduled job ${row.id} failed`);
+      }
+      if (rows.length >= expectedRuns) {
+        jobId = rows[0].id;
         break;
       }
       await new Promise((resolve) => setTimeout(resolve, 2_000));
     }
-    assert.ok(jobId, `scheduled event ${created.id} did not run within 120 seconds`);
+    assert.ok(jobId, `scheduled event ${created.id} did not complete ${expectedRuns} run(s) within ${timeoutMs}ms`);
     const disabled = await api("/api/app/update_event", { id: created.id, enabled: 0 });
     assertSuccess("update_event", disabled);
   }
