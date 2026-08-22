@@ -5,7 +5,7 @@ const username = required("ADMIN_USERNAME");
 const password = required("ADMIN_PASSWORD");
 const existingEventId = process.env.EXISTING_EVENT_ID || "";
 const expectedJobId = process.env.EXPECTED_JOB_ID || "";
-const expectedVersion = "0.9.128";
+const expectedVersion = "0.9.129";
 const scheduled = process.env.SCHEDULED === "1";
 let sessionId = "";
 let csrfToken = "";
