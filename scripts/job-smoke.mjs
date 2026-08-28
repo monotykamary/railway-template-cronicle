@@ -5,7 +5,7 @@ const username = required("ADMIN_USERNAME");
 const password = required("ADMIN_PASSWORD");
 const existingEventId = process.env.EXISTING_EVENT_ID || "";
 const expectedJobId = process.env.EXPECTED_JOB_ID || "";
-const expectedVersion = "0.9.129";
+const expectedVersion = "0.9.130";
 const scheduled = process.env.SCHEDULED === "1";
 const expectedRuns = Number(process.env.EXPECTED_RUNS || "1");
 assert.ok(Number.isInteger(expectedRuns) && expectedRuns > 0, "EXPECTED_RUNS must be a positive integer");

@@ -1,6 +1,6 @@
 FROM docker.io/library/node:22.23.2-bookworm-slim@sha256:d649c27dae7ba0137b3cef5dd75baa422c08dc3d9e3fc0c23dfb172dc3cc6436 AS build
 
-ARG CRONICLE_VERSION=0.9.129
+ARG CRONICLE_VERSION=0.9.130
 ARG CRONICLE_SHA256=946e3e1498c679248be9bb1e4d82ca17a90250cbb549cf1e9b6b395c46f0e049
 
 RUN apt-get update \
