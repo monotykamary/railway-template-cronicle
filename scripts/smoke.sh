@@ -6,7 +6,7 @@ set -eu
 base=${BASE_URL%/}
 status=$(curl -fsS "$base/api/app/status")
 printf '%s' "$status" | grep -q '"code":0'
-printf '%s' "$status" | grep -q '"version":"0.9.130"'
+printf '%s' "$status" | grep -q '"version":"0.9.131"'
 curl -fsS "$base/" | grep -q 'Cronicle'
 bad=$(curl -sS -o /tmp/cronicle-bad -w '%{http_code}' -H 'Content-Type: application/json' --data '{"username":"railway-template-missing-user","password":"wrong-template-probe"}' "$base/api/user/login")
 [ "$bad" = "200" ]
