@@ -2,13 +2,13 @@
 
 [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/cronicle-scheduler?referralCode=ZqgrJ0)
 
-Deploy Cronicle 0.9.131 as a single-node task scheduler with a generated administrator password and persistent scheduling data.
+Deploy Cronicle 0.9.133 as a single-node task scheduler with a generated administrator password and persistent scheduling data.
 
 The Deploy on Railway button is added after the published route is verified.
 
 ## What this deploys
 
-- Cronicle `0.9.131`, built from a checksum-verified upstream release archive
+- Cronicle `0.9.133`, built from a checksum-verified upstream release archive
 - Node.js `22.23.2` LTS on a digest-pinned multi-architecture base image
 - One daily-backed-up Railway volume for users, schedules, history, and completed job metadata
 - An idempotent first-run initializer that replaces the upstream `admin` / `admin` default before serving traffic
@@ -29,7 +29,7 @@ Cronicle filesystem storage is mounted at `/opt/cronicle/data`. Runtime logs, qu
 
 ## Security
 
-Cronicle normalizes administrator usernames for storage by removing dashes and dots; the configured spelling remains valid at login. Cronicle administrators can execute arbitrary commands by design. Only trusted operators should receive accounts. Jobs run inside the Cronicle container as an unprivileged user but can consume service resources and access networks reachable from that service. Cronicle 0.9.127–0.9.131 carries the dependency security updates, job-label HTML encoding fixes, and privilege-based job visibility checks, while Node.js 22.23.2 covers multiple high- and medium-severity runtime CVEs.
+Cronicle normalizes administrator usernames for storage by removing dashes and dots; the configured spelling remains valid at login. Cronicle administrators can execute arbitrary commands by design. Only trusted operators should receive accounts. Jobs run inside the Cronicle container as an unprivileged user but can consume service resources and access networks reachable from that service. Cronicle 0.9.127–0.9.133 carries the dependency security updates, job-label HTML encoding fixes, and privilege-based job visibility checks, while Node.js 22.23.2 covers multiple high- and medium-severity runtime CVEs.
 
 SMTP is not configured by default. Add an external SMTP provider before relying on alert and password-recovery email.
 
@@ -55,9 +55,9 @@ SCHEDULED=1 BASE_URL=https://your-domain.example ADMIN_USERNAME=admin ADMIN_PASS
 
 ## Upstream
 
-- Source: https://github.com/jhuckaby/Cronicle/tree/v0.9.131
-- Release: https://github.com/jhuckaby/Cronicle/releases/tag/v0.9.131
-- Documentation: https://github.com/jhuckaby/Cronicle/tree/v0.9.131/docs
+- Source: https://github.com/jhuckaby/Cronicle/tree/v0.9.133
+- Release: https://github.com/jhuckaby/Cronicle/releases/tag/v0.9.133
+- Documentation: https://github.com/jhuckaby/Cronicle/tree/v0.9.133/docs
 - License: MIT
 
 This repository contains only Railway adapters and documentation. Cronicle remains copyright Joseph Huckaby and contributors and is not affiliated with Railway.
