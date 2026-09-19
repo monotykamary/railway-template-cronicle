@@ -1,7 +1,7 @@
 FROM docker.io/library/node:22.23.2-bookworm-slim@sha256:d649c27dae7ba0137b3cef5dd75baa422c08dc3d9e3fc0c23dfb172dc3cc6436 AS build
 
-ARG CRONICLE_VERSION=0.9.133
-ARG CRONICLE_SHA256=17381d28e13c9d8bd9653b0c44210501b3fc50dcf1223cd3d04a414eadf24294
+ARG CRONICLE_VERSION=0.9.134
+ARG CRONICLE_SHA256=d11a89c5c6ef42b9b4c44ed9ebd47f78d67a22948486f4694bb6910095d19be3
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates curl \
