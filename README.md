@@ -9,7 +9,7 @@ The Deploy on Railway button is added after the published route is verified.
 ## What this deploys
 
 - Cronicle `0.9.135`, built from a checksum-verified upstream release archive
-- Node.js `22.23.2` LTS on a digest-pinned multi-architecture base image
+- Node.js `22.23.3` LTS on a digest-pinned multi-architecture base image
 - One daily-backed-up Railway volume for users, schedules, history, and completed job metadata
 - An idempotent first-run initializer that replaces the upstream `admin` / `admin` default before serving traffic
 - A narrow compatibility patch for the Node.js 22 bundle regex, plus idempotent administrator-key normalization for Cronicle login compatibility
@@ -29,7 +29,7 @@ Cronicle filesystem storage is mounted at `/opt/cronicle/data`. Runtime logs, qu
 
 ## Security
 
-Cronicle normalizes administrator usernames for storage by removing dashes and dots; the configured spelling remains valid at login. Cronicle administrators can execute arbitrary commands by design. Only trusted operators should receive accounts. Jobs run inside the Cronicle container as an unprivileged user but can consume service resources and access networks reachable from that service. Cronicle 0.9.127–0.9.135 carries the dependency security updates, job-label HTML encoding fixes, and privilege-based job visibility checks, while Node.js 22.23.2 covers multiple high- and medium-severity runtime CVEs.
+Cronicle normalizes administrator usernames for storage by removing dashes and dots; the configured spelling remains valid at login. Cronicle administrators can execute arbitrary commands by design. Only trusted operators should receive accounts. Jobs run inside the Cronicle container as an unprivileged user but can consume service resources and access networks reachable from that service. Cronicle 0.9.127–0.9.135 carries the dependency security updates, job-label HTML encoding fixes, and privilege-based job visibility checks, while Node.js 22.23.3 covers multiple high- and medium-severity runtime CVEs.
 
 SMTP is not configured by default. Add an external SMTP provider before relying on alert and password-recovery email.
 
