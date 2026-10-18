@@ -2,8 +2,8 @@
 
 ## Cronicle
 
-- Version: 0.9.131
-- Source: https://github.com/jhuckaby/Cronicle/tree/v0.9.131
+- Version: 0.9.137
+- Source: https://github.com/jhuckaby/Cronicle/tree/v0.9.137
 - Copyright: Joseph Huckaby and contributors
 - License: MIT
 
