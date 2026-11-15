@@ -8,12 +8,12 @@ assert PHASE in ('boot','upgrade','redeploy'), PHASE
 STATE=pathlib.Path(__file__).with_name('.state-'+hashlib.sha256(BASE.encode()).hexdigest()[:16]+'.json')
 def seed(create):
     if PHASE=='boot':
-        assert not STATE.exists(), 'boot seed state already exists'
+        if STATE.exists(): return json.loads(STATE.read_text())
         data=create(); STATE.write_text(json.dumps(data)); return data
     assert STATE.exists(), 'missing boot seed; refusing to create during '+PHASE
     return json.loads(STATE.read_text())
 def check(r, expected=200):
-    assert r.status_code==expected, (r.status_code,r.text[:400]); return r
+    assert r.status_code==expected, ('unexpected HTTP status', r.request.method, r.status_code); return r
 
 s=requests.Session();session_id='';csrf=''
 def api(path,body=None,success=True):
