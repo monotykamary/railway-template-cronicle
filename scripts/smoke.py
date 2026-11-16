@@ -31,7 +31,14 @@ for _ in range(60):
     if ready.get('code')==0:break
     assert ready.get('code')=='master';time.sleep(1)
 else:raise AssertionError('master did not become ready')
-status=api('/api/app/status');assert status.get('version') in (('0.9.137','0.9.146') if PHASE=='boot' else ('0.9.146',)),status
+# /status is deliberately ACL-restricted upstream. The public UI config exposes
+# the release version without changing that ACL. Parse JSONP as data, never eval.
+config_response=check(s.get(BASE+'/api/app/config',timeout=60))
+config_text=config_response.text
+prefix='app.receiveConfig(';suffix=');\n'
+assert config_text.startswith(prefix) and config_text.endswith(suffix), 'public config envelope'
+status=json.loads(config_text[len(prefix):-len(suffix)])
+assert status.get('code')==0 and status.get('version') in (('0.9.137','0.9.146') if PHASE=='boot' else ('0.9.146',)), 'public config version'
 
 def history(event_id):
     rows=api('/api/app/get_history',{'offset':0,'limit':100}).get('rows',[])
