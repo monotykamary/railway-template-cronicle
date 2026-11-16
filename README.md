@@ -35,6 +35,8 @@ SMTP is not configured by default. Add an external SMTP provider before relying 
 
 ## Updating
 
+Before upgrading an existing deployment, back up `/opt/cronicle/data` and set the Railway service health check path to `/`. Existing service settings may retain the legacy `/api/app/status` path despite the repository configuration. Do not disable API access controls or reset stored data or credentials to make a health check pass.
+
 Update the Cronicle version, source checksum, Node tag, and image digest together. Review release notes and repeat login, event execution, scheduler timing, history, persistence, redeploy, and delayed log tests.
 
 ## Validation

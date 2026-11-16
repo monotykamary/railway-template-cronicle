@@ -27,6 +27,10 @@ The adapter builds a checksum-verified Cronicle 0.9.146 source archive on digest
 
 This is deliberately a single-node topology. Cronicle's optional UDP discovery and LAN-oriented multi-server behavior are not represented. Administrators can run arbitrary commands by design, so access must be limited to trusted operators.
 
+## Upgrading an Existing Service
+
+Back up `/opt/cronicle/data` and set the Railway service health check path to `/` before upgrading. Existing service settings may retain the legacy `/api/app/status` path despite the repository configuration. Keep API access controls, stored data, and credentials intact.
+
 ## Why Deploy Cronicle on Railway?
 
 Railway supplies managed HTTPS, generated credentials, persistent storage with backups, health checks, and repeatable deployment for Cronicle's supported single-server mode.
