@@ -11,6 +11,6 @@
 
 ## Node.js
 
-- Version: 22.23.3
+- Version: 22.23.4
 - Source: https://github.com/nodejs/node
 - License: MIT and bundled third-party terms
